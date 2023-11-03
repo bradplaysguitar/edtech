@@ -6,6 +6,9 @@ const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Serve static files from the public directory
+app.use(express.static('public'));
+
 // Load client secrets from a local file.
 const serviceAccount = require('./fresh-sequence-403917-cd91d53c0136.json');
 
