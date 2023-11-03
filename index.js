@@ -5,6 +5,9 @@ const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require('cors');
+app.use(cors());
+
 
 // Serve static files from the public directory
 app.use(express.static('public'));
