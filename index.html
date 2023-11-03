@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate Definition</title>
+</head>
+<body>
+
+<h1>Definition Generator</h1>
+<button id="generateDefinitionButton">Generate Definition</button>
+<div id="definitionOutput"></div>
+
+<script>
+// JavaScript to handle the button click and make an API request
+document.getElementById('generateDefinitionButton').addEventListener('click', function() {
+  fetch('ec2-18-221-29-15.us-east-2.compute.amazonaws.com:3000/generate-definition', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add any other headers your API requires
+    },
+    body: JSON.stringify({
+      // Include any necessary body content your API requires
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('definitionOutput').innerText = data.updatedDefinition;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    document.getElementById('definitionOutput').innerText = 'Failed to generate definition.';
+  });
+});
+</script>
+
+</body>
+</html>
