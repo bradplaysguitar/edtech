@@ -14,7 +14,7 @@
 <script>
 // JavaScript to handle the button click and make an API request
 document.getElementById('generateDefinitionButton').addEventListener('click', function() {
-  fetch('ec2-18-221-29-15.us-east-2.compute.amazonaws.com:3000/generate-definition', {
+  fetch('http://ec2-18-221-29-15.us-east-2.compute.amazonaws.com:3000/generate-definition', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
