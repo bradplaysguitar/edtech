@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generate Definition</title>
+<style>
+  #historyOutput {
+    white-space: pre-line; /* Ensures the line breaks in the text content are respected */
+  }
+</style>
 </head>
 <body>
 
@@ -11,9 +16,13 @@
 <button id="generateDefinitionButton">Generate Definition</button>
 <div id="definitionOutput"></div>
 
+<!-- Add a button to fetch the history -->
+<button id="showHistoryButton">Show History</button>
+<div id="historyOutput"></div>
+
 <script>
 // JavaScript to handle the button click and make an API request
- document.getElementById('generateDefinitionButton').addEventListener('click', function() {
+document.getElementById('generateDefinitionButton').addEventListener('click', function() {
   console.log('Button clicked');
   
   // Define the URL as a variable
@@ -21,7 +30,7 @@
   
   // Use the variable in the fetch call
   fetch(url, {
-  method: 'POST',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       // Add any other headers your API requires
@@ -33,11 +42,33 @@
   .then(response => response.json())
   .then(data => {
     document.getElementById('definitionOutput').innerText = data.updatedDefinition;
+    // After updating the definition, fetch and display the history as well
+    fetchHistory();
   })
-.catch(error => {
-  console.error('Error:', error);
-  document.getElementById('definitionOutput').innerText = 'Failed to generate definition.';
+  .catch(error => {
+    console.error('Error:', error);
+    document.getElementById('definitionOutput').innerText = 'Failed to generate definition.';
+  });
 });
+
+// Function to fetch and display the history
+function fetchHistory() {
+  let historyUrl = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/definitions-history';
+  
+  fetch(historyUrl)
+  .then(response => response.text()) // Use .text() instead of .json() if the server sends plain text
+  .then(data => {
+    document.getElementById('historyOutput').innerText = data;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    document.getElementById('historyOutput').innerText = 'Failed to load history.';
+  });
+}
+
+// Add event listener for the show history button
+document.getElementById('showHistoryButton').addEventListener('click', function() {
+  fetchHistory();
 });
 </script>
 
