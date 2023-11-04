@@ -13,13 +13,14 @@
 
 <script>
 // JavaScript to handle the button click and make an API request
+ document.getElementById('generateDefinitionButton').addEventListener('click', function() {
+  console.log('Button clicked');
+  
   // Define the URL as a variable
   let url = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition';
   
-document.getElementById('generateDefinitionButton').addEventListener('click', function() {
-  console.log('Button clicked');
-  console.log('URL:', 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition');
-fetch(url, {
+  // Use the variable in the fetch call
+  fetch(url, {
   method: 'POST',
     headers: {
       'Content-Type': 'application/json',
