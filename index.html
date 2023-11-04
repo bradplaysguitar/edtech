@@ -5,8 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generate Definition</title>
 <style>
-  #historyOutput {
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  #definitionOutput, #historyOutput {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px; /* Space between buttons and output */
+    background-color: #fff;
     white-space: pre-line; /* Ensures the line breaks in the text content are respected */
+  }
+
+  #historyOutput {
     display: none; /* Initially hide the history output */
   }
 </style>
@@ -15,10 +45,8 @@
 
 <h1>Definition Generator</h1>
 <button id="generateDefinitionButton">Generate Definition</button>
-<div id="definitionOutput"></div>
-
-<!-- Button to fetch the history -->
 <button id="showHistoryButton">Show History</button>
+<div id="definitionOutput"></div>
 <div id="historyOutput"></div>
 
 <script>
