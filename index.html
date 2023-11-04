@@ -7,6 +7,7 @@
 <style>
   #historyOutput {
     white-space: pre-line; /* Ensures the line breaks in the text content are respected */
+    display: none; /* Initially hide the history output */
   }
 </style>
 </head>
@@ -16,7 +17,7 @@
 <button id="generateDefinitionButton">Generate Definition</button>
 <div id="definitionOutput"></div>
 
-<!-- Add a button to fetch the history -->
+<!-- Button to fetch the history -->
 <button id="showHistoryButton">Show History</button>
 <div id="historyOutput"></div>
 
@@ -42,8 +43,6 @@ document.getElementById('generateDefinitionButton').addEventListener('click', fu
   .then(response => response.json())
   .then(data => {
     document.getElementById('definitionOutput').innerText = data.updatedDefinition;
-    // After updating the definition, fetch and display the history as well
-    fetchHistory();
   })
   .catch(error => {
     console.error('Error:', error);
@@ -56,9 +55,10 @@ function fetchHistory() {
   let historyUrl = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/definitions-history';
   
   fetch(historyUrl)
-  .then(response => response.text()) // Use .text() instead of .json() if the server sends plain text
+  .then(response => response.text())
   .then(data => {
     document.getElementById('historyOutput').innerText = data;
+    document.getElementById('historyOutput').style.display = 'block'; // Show the history
   })
   .catch(error => {
     console.error('Error:', error);
@@ -68,7 +68,7 @@ function fetchHistory() {
 
 // Add event listener for the show history button
 document.getElementById('showHistoryButton').addEventListener('click', function() {
-  fetchHistory();
+  fetchHistory(); // Call fetchHistory when the button is clicked
 });
 </script>
 
