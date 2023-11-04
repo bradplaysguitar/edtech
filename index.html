@@ -13,10 +13,13 @@
 
 <script>
 // JavaScript to handle the button click and make an API request
+  // Define the URL as a variable
+  let url = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition';
+  
 document.getElementById('generateDefinitionButton').addEventListener('click', function() {
   console.log('Button clicked');
   console.log('URL:', 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition');
-fetch('http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition', {
+fetch(url, {
   method: 'POST',
     headers: {
       'Content-Type': 'application/json',
