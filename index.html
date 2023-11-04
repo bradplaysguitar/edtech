@@ -5,14 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generate Definition</title>
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+  h1 {
+    color: #5D5C61;
+  }
   #definitionOutput, #historyOutput {
-    border: 1px solid #000; /* Adds a border around the output */
+    border: 1px solid #ccc; /* Adds a border around the output */
+    background-color: #fff;
     margin-top: 10px; /* Adds space above the output */
     padding: 10px; /* Adds space inside the border */
     white-space: pre-line; /* Ensures the line breaks in the text content are respected */
+    display: none; /* Initially hide the outputs */
   }
   button {
-    margin-right: 5px; /* Adds space between buttons */
+    background-color: #7892c2; /* A soft blue background */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  button:hover {
+    background-color: #6c7ba2; /* Darken the button color on hover */
   }
 </style>
 </head>
@@ -20,9 +41,14 @@
 
 <h1>Definition Generator</h1>
 <button id="generateDefinitionButton">Generate Definition</button>
-<button id="showHistoryButton">Show History</button>
-<button id="viewInputsButton">View Inputs</button>
 <div id="definitionOutput"></div>
+
+<!-- Move the buttons below the definition output -->
+<div>
+  <button id="showHistoryButton">Show History</button>
+  <button id="viewInputsButton">View Inputs</button>
+</div>
+
 <div id="historyOutput"></div>
 
 <script>
@@ -47,6 +73,7 @@ document.getElementById('generateDefinitionButton').addEventListener('click', fu
   .then(response => response.json())
   .then(data => {
     document.getElementById('definitionOutput').innerText = data.updatedDefinition;
+    document.getElementById('definitionOutput').style.display = 'block'; // Show the definition
   })
   .catch(error => {
     console.error('Error:', error);
@@ -74,7 +101,8 @@ function fetchHistory() {
 document.getElementById('showHistoryButton').addEventListener('click', function() {
   fetchHistory(); // Call fetchHistory when the button is clicked
 });
-  // Add event listener for the view inputs button
+
+// Add event listener for the view inputs button
 document.getElementById('viewInputsButton').addEventListener('click', function() {
   window.open('https://docs.google.com/spreadsheets/d/1rsKHqq3an1IyX7l1AM8rph8uuVzJunA-z8uU2csptag/edit#gid=794514349&range=B:B', '_blank');
 });
