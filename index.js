@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { google } = require('googleapis');
 const axios = require('axios');
+const fs = require('fs'); // Include the file system module
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.static('public'));
 
 // Load client secrets from a local file.
 const serviceAccount = require('./fresh-sequence-403917-cd91d53c0136.json');
+
 
 // Configure a JWT auth client
 const jwtClient = new google.auth.JWT(
@@ -38,6 +40,22 @@ const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Define the path to the log file
+const logFilePath = './definitions_log.txt';
+
+// Function to log the definition
+function logDefinition(definition) {
+  const timestamp = new Date().toISOString();
+  const logEntry = `${timestamp}: ${definition}\n`;
+  
+  // Append the log entry to the file
+  fs.appendFile(logFilePath, logEntry, (err) => {
+    if (err) {
+      console.error('Error logging definition:', err);
+    }
+  });
+}
 
 // Function to perform exponential back-off
 const exponentialBackoff = (fn, delay = 1000, retries = 5) => {
@@ -102,6 +120,10 @@ app.post('/generate-definition', async (req, res) => {
 
     // Extract the updated definition from the OpenAI response
     const updatedDefinition = openAIResponse.data.choices[0].message.content.trim();
+    
+    // Log the updated definition
+    logDefinition(updatedDefinition); // Call this function to log the definition
+
 
     // Send the updated definition back to the client
     res.json({ updatedDefinition });
@@ -109,6 +131,18 @@ app.post('/generate-definition', async (req, res) => {
     console.error('Error generating definition:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+
+// Endpoint to get the history of definitions
+app.get('/definitions-history', (req, res) => {
+  fs.readFile(logFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading log file:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 // Start the server
