@@ -99,7 +99,19 @@ app.post('/generate-definition', async (req, res) => {
     console.log('Sending the following messages to OpenAI:', messages);
 
     // Add the specific prompt as the last message
-    messages.push({ role: 'user', content: 'Using strictly only the content provided by the user, provide an answer to the question, What is constructivism? Do not elaborate or provide more deatails. The answer must be only constructed using the words and details provided by the user' });
+    // Split the prompt into smaller parts
+const promptPart1 = "Construct a definition/synopsis of constructivism ";
+const promptPart2 = "in the context of education using only the information ";
+const promptPart3 = "provided in user responses. Do not add, interpret, ";
+const promptPart4 = "or expand upon the concepts mentioned; use only the user's ";
+const promptPart5 = "exact wording to generate the concept. Begin with no prior ";
+const promptPart6 = "definition and do not include any external knowledge or ";
+const promptPart7 = "descriptions not explicitly stated in the user responses.";
+
+// Concatenate the parts to form the full prompt
+const fullPrompt = promptPart1 + promptPart2 + promptPart3 + promptPart4 + promptPart5 + promptPart6 + promptPart7;
+
+messages.push({ role: 'user', content: fullPrompt });
 
     // Function to send the messages to OpenAI API
     const sendToOpenAI = async () => {
