@@ -57,7 +57,7 @@ document.getElementById('generateDefinitionButton').addEventListener('click', fu
   console.log('Button clicked');
   
   // Define the URL as a variable
-  let url = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/generate-definition';
+  let url = 'http://ec2-52-15-192-26.us-east-2.compute.amazonaws.com:3000/generate-definition';
   
   // Use the variable in the fetch call
   fetch(url, {
@@ -83,7 +83,7 @@ document.getElementById('generateDefinitionButton').addEventListener('click', fu
 
 // Function to fetch and display the history
 function fetchHistory() {
-  let historyUrl = 'http://ec2-3-145-151-104.us-east-2.compute.amazonaws.com:3000/definitions-history';
+  let historyUrl = 'http://ec2-52-15-192-26.us-east-2.compute.amazonaws.com:3000/definitions-history';
   
   fetch(historyUrl)
   .then(response => response.text())
