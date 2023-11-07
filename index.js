@@ -99,7 +99,7 @@ app.post('/generate-definition', async (req, res) => {
     console.log('Sending the following messages to OpenAI:', messages);
 
     // Add the specific prompt as the last message
-    messages.push({ role: 'user', content: 'Construct a definition or synopsis of constructivism in the context of education using only the information provided in user responses Do not add interpret or expand upon the concepts mentioned use only the user's exact wording to generate the concept Begin without a prior definition and don't include any external knowledge or descriptions not explicitly stated in the user responses.' });
+    messages.push({ role: 'user', content: 'Construct a definition/synopsis of constructivism in the context of education using only the information provided in user responses. Do not add, interpret or expand upon the concepts mentioned use only the user's exact wording to generate the synopsis/definition start without a prior definition and don't include any external knowledge or descriptions not explicitly stated in the user responses.' });
 
     // Function to send the messages to OpenAI API
     const sendToOpenAI = async () => {
